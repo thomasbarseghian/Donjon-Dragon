@@ -25,10 +25,6 @@ public abstract class Entite {
         return m_y;
     }
 
-    public void setM_x(int m_x) {this.m_x = m_x;}
-
-    public void setM_y(int m_y) {this.m_y = m_y;}
-
     public void setPosition(int x, int y) {
         this.m_x = x;
         this.m_y = y;

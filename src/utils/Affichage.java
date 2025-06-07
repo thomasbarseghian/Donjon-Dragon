@@ -68,7 +68,7 @@ public class Affichage {
         return i;
     }
 
-    public static int afficherToutArmes(Donjon donjon, Joueur joueur){
+    public static int afficherToutArmes(Joueur joueur){
         int i = 0;
         for (Arme a : joueur.getM_classe().getM_armes()) {
             i++;

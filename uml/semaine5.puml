@@ -9,15 +9,12 @@ package Entites{
     abstract class Entite {
         - m_x:Integer
         - m_y:Integer
-        - {static} m_entites : List<Entite>
         + <<Create>> Entite(x : Integer, y: Integer)
         + getM_x() : Integer
         + getM_y() : Integer
-        + setM_entites()
-        + {static} getM_entites() : List<Entite>
-        + ramasser(Joueur : joueur)
-        + estBloquant() : boolean
         + setPosition(x : Integer, y : Integer)
+        + getDisplaySymbol() : String
+        + ramasser(Joueur : joueur)
         + caseOccupee(x : Integer, y : Integer)
     }
 
@@ -71,10 +68,12 @@ package Entites{
             -m_initiative : Integer
             + <<Create>> Personnage(nom : String, pv : Integer, x : Integer, y : Integer)
             + setPosition(x : Integer, y : Integer)
-            + seDeplacer(donjon : Donjon
-            + saisirPositionValide(maxX : Integer, maxY : Integer) : Integer[]
-            + {abstract} attaquer()
+            + seDeplacer(donjon : Donjon)
             + commenterDeplacement(x : Integer, y : Integer)
+            + saisirPositionValide(maxX : Integer, maxY : Integer) : Integer[]
+            + ramasser(donjon : Donjon)
+            + equiperChoix()
+            + {abstract} attaquer(donjon : Donjon)
             + getM_nom() : String
             + getM_pv() : Integer
             + getM_pvMax() : Integer
@@ -86,8 +85,12 @@ package Entites{
             + setM_force(force : Integer)
             + setM_dexterite(dexterite : Integer)
             + setM_vitesse(dexterite : Integer)
-            + afficheApresTour() : String
-            + toString() : String
+            + {abstract} afficheApresTour() : String
+            + {abstract} actionAffichage(actionRestantes : Integer)
+            + {abstract} executerTour(donjon : Donjon)
+            + {abstract} afficheTourInformation() : String
+            + {abstract} retirerDuDonjon(donjon : Donjon)
+            + {abstract} toString() : String
         }
         package Joueurs {
             class Joueur{
@@ -190,13 +193,14 @@ package Entites{
             +demanderInterventionMaitreDejeu() : Integer
             +seDeplacerParMaitreDeJeu(donjon : Donjon, p : Personnage)
             +affichagePersonnage(initiativeOrder : Personnage[*])
-            + toString() : String
+            +toString() : String
         }
 
     }
 
     class Obstacle {
         + Obstacle(x : Integer, y : Integer)
+        + getDisplaySymbol() : String
     }
 }
 package utils
@@ -213,7 +217,24 @@ package utils
     + <<Create>> De(nombreDes : Integer, facesParDe : Integer)
     + lanceDe(): Integer
     + lanceDePrint(): Integer
+    + getM_facesParDe() : Integer
+    + getM_nombreDes() : Integer
     + toString(): String
+  }
+
+  class Affichage
+  {
+    + <<Create>> Affichage()
+    + {static} afficheBonusAttaque(degatsArmure : Integer)
+    + {static} afficheFullVie(nom : String)
+    + {static} afficheGuerison(nom : String, heal : Integer)
+    + {static} afficherToutJoueurs(donjon : Donjon) : Integer
+    + afficheDemande(len : Integer, entite : String) : Integer
+    + {static} afficherToutMonstres(index : int, donjon : Donjon) : Integer
+    + {static} afficherToutArmes(joueur : Joueur) : Integer
+    + {static} affichageAmeliorationArme(nom : String)
+    + {static} afficherSort(nom : String)
+    + demandeSort() : String
   }
 }
 package deroulement {
@@ -297,9 +318,10 @@ Entite <|-up- Personnage
 Entite <|-up- Arme
 Entite <|-up- Armure
 Entite <|-up- Obstacle
-Entite "1" o--> "*" Entite : -m_entites
-Entite ..> Arme : "uses"
-Entite ..> Armure : "uses"
+Entite ..> Donjon : "uses"
+Entite ..> Joueur : "uses"
+Entite ..> Monstre : "uses"
+Entite ..> Obstacle : "uses"
 
 
 ' Relations de ClasseJoueur
@@ -337,5 +359,18 @@ Armure .> Joueur : "uses"
 MaitreJeu .> Personnage : "uses"
 MaitreJeu .> Entite : «call»
 MaitreJeu .> Obstacle : "instantiate"
+
+' Relations de la classe Affichage
+
+Affichage .> Donjon : "uses"
+Affichage .> Donjon : "call"
+Affichage .> Joueur : "uses"
+Affichage .> Joueur : "call"
+Affichage .> Monstre : "uses"
+Affichage .> Monstre : "call"
+Affichage .> Arme : "uses"
+
+' Relations de la classe Utils
+Utils .> Joueur : "uses"
 
 @enduml

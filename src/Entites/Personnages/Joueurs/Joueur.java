@@ -376,7 +376,7 @@ public class Joueur extends Personnage {
         int lenJoueur = afficherToutJoueurs(donjon);
         int numJoueur = m_affichage.afficheDemande(lenJoueur, "du joueur");
         Joueur cibleJoueur = donjon.getM_joueurOnGround().get(numJoueur-1);
-        int lenArme = afficherToutArmes(donjon, cibleJoueur);
+        int lenArme = afficherToutArmes(cibleJoueur);
         int numArme = m_affichage.afficheDemande(lenArme, "de l'arme");
         ClasseJoueur classe = cibleJoueur.getM_classe();
         List<Arme> armes = classe.getM_armes();
