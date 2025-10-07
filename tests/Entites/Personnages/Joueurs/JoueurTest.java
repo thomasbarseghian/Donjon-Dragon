@@ -12,7 +12,7 @@ class JoueurTest {
     Joueur player = new Joueur("TestPlayer", Race.Humain(), ClasseJoueur.Guerriers(), 0, 0);
 
     assertEquals("TestPlayer", player.getM_nom());
-    assertEquals(100000, player.getM_pv()); // FAUT CHANGER THOMAS
+    assertEquals(20, player.getM_pv());
     assertEquals("Humain", player.getM_race().getM_nomRace());
     assertEquals("Guerriers", player.getM_classe().getM_nomClass());
   }
@@ -41,17 +41,48 @@ class JoueurTest {
   @Test
   public void testInitialStatsWithDiceRolls() {
     Joueur player = new Joueur("TestPlayer", Race.Humain(), ClasseJoueur.Guerriers(), 0, 0);
-    assertTrue(player.getM_force() >= 1002 + 4 && player.getM_force() <= 1000 + 16 + 2);
-    assertTrue(player.getM_dexterite() >= 3 + 4 + 2 && player.getM_dexterite() <= 3 + 16 + 2);
-    assertTrue(player.getM_vitesse() >= 1000 + 4 + 2 && player.getM_vitesse() <= 1000 + 16 + 2);
-    assertTrue(player.getM_initiative() >= 3 + 4 && player.getM_initiative() <= 3 + 16);
+
+    int baseMin = 7;
+    int baseMax = 19;
+
+    int bonusForce = player.getM_race().getM_BonusForce();
+    int bonusDex = player.getM_race().getM_BonusDexterite();
+    int bonusVit = player.getM_race().getM_BonusVitesse();
+
+    // Force
+    assertTrue(player.getM_force() >= baseMin + bonusForce);
+    assertTrue(player.getM_force() <= baseMax + bonusForce);
+
+    // Dexterite
+    assertTrue(player.getM_dexterite() >= baseMin + bonusDex);
+    assertTrue(player.getM_dexterite() <= baseMax + bonusDex);
+
+    // Vitesse
+    assertTrue(player.getM_vitesse() >= baseMin + bonusVit);
+    assertTrue(player.getM_vitesse() <= baseMax + bonusVit);
+
+    // Initiative (no race bonus)
+    assertTrue(player.getM_initiative() >= 4);
+    assertTrue(player.getM_initiative() <= 16);
   }
 
   @Test
   public void testNainStatsWithDiceRolls() {
     Joueur player = new Joueur("NainPlayer", Race.Nain(), ClasseJoueur.Guerriers(), 0, 0);
-    assertTrue(player.getM_force() >= 1000 + 4 + 6 && player.getM_force() <= 1000 + 16 + 6);
-    assertTrue(player.getM_dexterite() >= 3 + 4 && player.getM_dexterite() <= 3 + 16);
+
+    int baseMin = 7;
+    int baseMax = 19;
+
+    int bonusForce = player.getM_race().getM_BonusForce();
+    int bonusDex = player.getM_race().getM_BonusDexterite();
+
+    // Force
+    assertTrue(player.getM_force() >= baseMin + bonusForce);
+    assertTrue(player.getM_force() <= baseMax + bonusForce);
+
+    // Dexterite
+    assertTrue(player.getM_dexterite() >= baseMin + bonusDex);
+    assertTrue(player.getM_dexterite() <= baseMax + bonusDex);
   }
   @Test
   public void testGuerreWeaponEffect() {
