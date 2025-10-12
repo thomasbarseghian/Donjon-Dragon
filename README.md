@@ -23,12 +23,12 @@ Avant d’installer le projet, assurez-vous d’avoir :
 
 ---
 
-## 🚀 Étapes d’installation
+## Étapes d’installation
 
-### 1️⃣ Cloner le projet
+### Cloner le projet
 ```bash
-git clone https://github.com/<votre-utilisateur>/DOOnjon-Dragon.git
-cd DOOnjonAndDragon
+git clone https://github.com/thomasbarseghian/Donjon-Dragon.git
+cd Donjon-Dragon
 ```
 ### Fonctionnalités :
 - Créer des personnages personnalisés avec des caractéristiques uniques
