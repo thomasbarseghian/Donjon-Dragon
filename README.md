@@ -217,3 +217,6 @@ Fin du tour de ABDULLAH
 <img width="657" height="622" alt="Capture d’écran du 2025-10-09 19-29-35" src="https://github.com/user-attachments/assets/8f827780-ac02-49a4-8f6e-bb227592fa3a" />  
 <img width="535" height="488" alt="Capture d’écran du 2025-10-09 19-31-47" src="https://github.com/user-attachments/assets/79f3a854-e447-4c01-a31b-2c578e9c35d5" />  
 <img width="413" height="391" alt="Capture d’écran du 2025-10-09 19-32-33" src="https://github.com/user-attachments/assets/bb9ed88d-b32e-4433-a086-7c283fd43fea" />  
+
+## Licence
+Ce projet est sous licence MIT — voir le fichier LICENSE pour plus d’informations.
